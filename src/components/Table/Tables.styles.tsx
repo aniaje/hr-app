@@ -1,8 +1,7 @@
 import styled from "styled-components";
-
 import { variables } from "../../styles/variables";
 
-export const STable = styled.table`
+export const Table = styled.table`
   width: 70%;
 
   border-collapse: collapse;
@@ -15,12 +14,12 @@ export const STable = styled.table`
   }
 `;
 
-interface SActionButtonProps {
+interface ActionButtonProps {
   onClick?: (e: Event) => void;
   id?: number;
 }
 
-export const SActionButton = styled.button<SActionButtonProps>`
+export const ActionButton = styled.button<ActionButtonProps>`
   border: none;
   outline: none;
   color: #111;
@@ -39,7 +38,7 @@ export const SActionButton = styled.button<SActionButtonProps>`
   }
 `;
 
-export const STableInput = styled.input`
+export const TableInput = styled.input`
   padding: 0.3rem 0.5rem;
   min-width: 7rem;
   font-size: 0.9rem;
@@ -63,17 +62,17 @@ export const STableInput = styled.input`
   }
 `;
 
-export const STableInputs = styled.div`
+export const TableInputs = styled.div`
   display: flex;
 `;
 
-export const STHead = styled.thead``;
+export const THead = styled.thead``;
 
-export const STHeadTR = styled.tr`
+export const THeadTR = styled.tr`
   background: ${({ theme }) => theme.bg3};
 `;
 
-export const STH = styled.th`
+export const TH = styled.th`
   font-weight: normal;
   padding: ${variables.smSpacing};
   color: ${({ theme }) => theme.text};
@@ -93,13 +92,13 @@ export const STH = styled.th`
   }
 `;
 
-export const STBody = styled.tbody``;
+export const TBody = styled.tbody``;
 
-export const STBodyTR = styled.tr`
+export const TBodyTR = styled.tr`
   background: ${({ theme }) => theme.white};
 `;
 
-export const STD = styled.td`
+export const TD = styled.td`
   padding: ${variables.smSpacing};
   border: 1px solid ${({ theme }) => theme.bg2};
   font-size: 14px;

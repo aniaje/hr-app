@@ -1,11 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { HiOutlineUserCircle } from "react-icons/hi";
 import { MdOutlineLogout } from "react-icons/md";
 import { useGetUserQuery } from "redux/services/user";
 import { removeToken } from "auth/common";
-import { SDivider } from "../../Sidebar/Sidebar.styles";
-import { StyledMenu, SLogout } from "./Menu.styles";
+import { Divider } from "../../Sidebar/Sidebar.styles";
+import { StyledMenu, Logout } from "./Menu.styles";
 
 interface MenuProps {
   open: boolean;
@@ -27,15 +26,15 @@ const Menu = ({ open, setOpen, onClick }: MenuProps) => {
     <StyledMenu open={open} onClick={() => setOpen(!open)}>
       <span aria-label="User">{profile?.firstname}</span>
       <span aria-label="User">{profile?.lastname}</span>
-      <SDivider />
+      <Divider />
       <Link to="/profile">
         <span aria-label="Profile">PROFILE</span>
       </Link>
-      <SDivider />
+      <Divider />
 
-      <SLogout type="button" aria-label="Logout" onClick={handleLogout}>
+      <Logout type="button" aria-label="Logout" onClick={handleLogout}>
         <MdOutlineLogout /> LOG OUT
-      </SLogout>
+      </Logout>
     </StyledMenu>
   );
 };

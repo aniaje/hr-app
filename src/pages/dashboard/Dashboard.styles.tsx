@@ -100,7 +100,7 @@ export const DStats = styled.div`
   }
 `;
 
-export const DStatInfo = styled.div`
+export const StatisticInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;

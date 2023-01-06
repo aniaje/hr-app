@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import { useOnClickOutside } from "../../hooks";
 import Sidebar from "../Sidebar/Sidebar";
-import { SLayout, SMainContainer, SMenuWrapper } from "./Layout.styles";
+import { SLayout, MainContainer, MenuWrapper } from "./Layout.styles";
 import MenuAvatar from "../AvatarMenu/Avatar/Avatar";
 import Menu from "../AvatarMenu/Menu/Menu";
 
@@ -15,20 +15,20 @@ const Layout = () => {
   return (
     <SLayout>
       <Sidebar />
-      <SMainContainer>
+      <MainContainer>
         <Outlet />
         <div ref={node}>
           <MenuAvatar open={open} setOpen={setOpen} />
-          <SMenuWrapper>
+          <MenuWrapper>
             <Menu
               open={open}
               setOpen={function (state: boolean): void {
                 throw new Error("Function not implemented.");
               }}
             />
-          </SMenuWrapper>
+          </MenuWrapper>
         </div>
-      </SMainContainer>
+      </MainContainer>
     </SLayout>
   );
 };

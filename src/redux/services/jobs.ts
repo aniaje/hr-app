@@ -1,4 +1,5 @@
 import { dataApiSlice } from "../api";
+import { APITags } from "../enums";
 
 export interface IJob {
   companyName: string;
@@ -14,36 +15,36 @@ const jobsApi = dataApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllJobs: builder.query({
       query: () => "jobs",
-      providesTags: ["Job"]
+      providesTags: [APITags.Job],
     }),
 
     getOneJob: builder.query({
       query: (id) => `/jobs/${id}`,
-      providesTags: ["Job"]
+      providesTags: [APITags.Job],
     }),
 
     deleteJob: builder.mutation<{ success: boolean; id: number }, number>({
       query: (id) => ({
         url: `/jobs/${id}`,
-        method: "DELETE"
+        method: "DELETE",
       }),
-      invalidatesTags: ["Job"]
+      invalidatesTags: [APITags.Job],
     }),
 
     addJob: builder.mutation({
       query: (job: IJob) => ({
         url: "/jobs",
-        method: "POST"
+        method: "POST",
       }),
-      invalidatesTags: ["Job"]
-    })
+      invalidatesTags: [APITags.Job],
+    }),
   }),
-  overrideExisting: false
+  overrideExisting: false,
 });
 
 export const {
   useGetAllJobsQuery,
   useAddJobMutation,
   useDeleteJobMutation,
-  useGetOneJobQuery
+  useGetOneJobQuery,
 } = jobsApi;

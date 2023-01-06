@@ -1,4 +1,4 @@
-import { Link, LinkProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { variables } from "../../styles/variables";
@@ -17,22 +17,22 @@ export const SSidebar = styled.nav`
   }
 `;
 
-export const STitle = styled.h3`
+export const Title = styled.h3`
   text-align: center;
 `;
 
-export const SDivider = styled.div`
+export const Divider = styled.div`
   height: 1px;
   width: 100%;
   background: ${({ theme }) => theme.bg3};
   margin: ${variables.lgSpacing} 0;
 `;
 
-interface SLinkContainerProps {
+interface LinkContainerProps {
   isActive: boolean;
   key: string;
 }
-export const SLinkContainer = styled.div<SLinkContainerProps>`
+export const LinkContainer = styled.div<LinkContainerProps>`
   background: ${({ theme, isActive }) =>
     !isActive ? `transparent` : theme.bg3};
   border-radius: ${variables.borderRadius};
@@ -57,7 +57,7 @@ export const SLink = styled(Link)`
   }
 `;
 
-export const SLinkIcon = styled.div`
+export const LinkIcon = styled.div`
   padding: ${variables.smSpacing} ${variables.mdSpacing};
   display: flex;
   svg {
@@ -65,7 +65,7 @@ export const SLinkIcon = styled.div`
   }
 `;
 
-export const SLinkLabel = styled.span`
+export const LinkLabel = styled.span`
   display: block;
   color: black;
   flex: 1;

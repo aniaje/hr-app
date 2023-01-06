@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import api from "utils/api"; // eslint-disable-line no-use-before-define
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -7,23 +6,23 @@ import { storeTokenInLocalStorage } from "auth/common";
 import { notifySuccess, notifyError } from "utils/toast/toastNotify";
 import { IFormDataLogin } from "types";
 import { ToastContainer } from "react-toastify";
+import { AiFillEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { useSigninUserMutation } from "redux/services/user";
 import { useAppDispatch } from "redux/hook";
 import * as yup from "yup";
 import { setUser } from "redux/authUser";
 import {
-  SForm,
-  SFormControl,
-  SFormTitle,
-  SInput,
-  SCheckbox,
-  SRedirect,
-  SShowIcon,
-  SRedirectLabel,
-  SCheckboxLabel,
+  Form,
+  FormControl,
+  FormTitle,
+  Input,
+  Checkbox,
+  Redirect,
+  ShowIcon,
+  RedirectLabel,
+  CheckboxLabel,
   Error,
 } from "../../components/forms/Form.styles";
-import { AiFillEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
 const defaultData = {
   username: "",
@@ -86,53 +85,53 @@ export const SignIn: React.FC = () => {
       {isLoading && <p>Loading...</p>}
       <ToastContainer />
 
-      <SFormTitle> Login </SFormTitle>
-      <SForm onSubmit={handleSubmit(onSubmit)}>
-        <SFormControl>
+      <FormTitle> Login </FormTitle>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <FormControl>
           {/* <SLabel>E-mail</SLabel> */}
-          <SInput
+          <Input
             {...register("username")}
             name="username"
             type="text"
             placeholder="Email"
           />
-        </SFormControl>
+        </FormControl>
         <Error>{errors.username?.message}</Error>
-        <SFormControl>
-          <SInput
+        <FormControl>
+          <Input
             {...register("password")}
             name="password"
             type={passwordShown ? "text" : "password"}
             placeholder="Password"
           />
 
-          <SShowIcon type="button" onClick={togglePassword}>
+          <ShowIcon type="button" onClick={togglePassword}>
             {passwordShown ? <AiFillEyeInvisible /> : <AiOutlineEye />}
-          </SShowIcon>
-        </SFormControl>
+          </ShowIcon>
+        </FormControl>
         <Error>{errors.password?.message}</Error>
-        <SFormControl>
-          <SCheckbox
+        <FormControl>
+          <Checkbox
             {...register("remember")}
             placeholder="Remember"
             name="remember"
             type="checkbox"
           />
-          <SCheckboxLabel htmlFor="remember">Remember me</SCheckboxLabel>
-        </SFormControl>
+          <CheckboxLabel htmlFor="remember">Remember me</CheckboxLabel>
+        </FormControl>
         <button disabled={!isValid && !isDirty} type="submit">
           sign in
         </button>
-        <SRedirect>
-          <SRedirectLabel>
+        <Redirect>
+          <RedirectLabel>
             Dont have an account?
             <Link onClick={() => navigate("/signup")} to="/signup">
               <br />
               Click here to create one
             </Link>
-          </SRedirectLabel>
-        </SRedirect>
-      </SForm>
+          </RedirectLabel>
+        </Redirect>
+      </Form>
     </>
   );
 };

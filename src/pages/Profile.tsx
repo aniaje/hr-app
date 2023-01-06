@@ -1,5 +1,5 @@
 import { useGetUserQuery } from "redux/services/user";
-import { SProfileTitle, SDetail, ProfileWrapper } from "./Profile.styles";
+import { ProfileTitle, Detail, ProfileWrapper } from "./Profile.styles";
 
 const Profile = () => {
   const {
@@ -15,22 +15,22 @@ const Profile = () => {
   } else if (isSuccess) {
     return (
       <>
-        <SProfileTitle>Your Profile: </SProfileTitle>
+        <ProfileTitle>Your Profile: </ProfileTitle>
         <ProfileWrapper>
-          <SDetail>
+          <Detail>
             Firstname:
             <p>{profile?.firstname || "no data"}</p>
-          </SDetail>
+          </Detail>
           <br />
-          <SDetail>
+          <Detail>
             Lastname:
             <p>{profile?.lastname || "no data"}</p>
-          </SDetail>
+          </Detail>
           <br />
-          <SDetail>
+          <Detail>
             E-mail:
             <p>{profile?.username || "no data"}</p>
-          </SDetail>
+          </Detail>
         </ProfileWrapper>
       </>
     );

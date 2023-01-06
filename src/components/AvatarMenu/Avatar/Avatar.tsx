@@ -1,6 +1,6 @@
 import React from "react";
 import { useGetUserQuery } from "redux/services/user";
-import { SAvatar } from "./Avatar.styles";
+import { Avatar } from "./Avatar.styles";
 
 interface MenuAvatarProps {
   open: boolean;
@@ -12,10 +12,10 @@ const MenuAvatar = ({ open, setOpen }: MenuAvatarProps) => {
   const letterName = profile?.firstname.charAt(0).toUpperCase();
   const letterLastname = profile?.lastname.charAt(0).toUpperCase();
   return (
-    <SAvatar open={open} onClick={() => setOpen(!open)}>
+    <Avatar open={open} onClick={() => setOpen(!open)}>
       {letterName}
       {letterLastname}
-    </SAvatar>
+    </Avatar>
   );
 };
 

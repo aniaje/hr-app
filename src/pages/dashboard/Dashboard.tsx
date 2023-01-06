@@ -17,16 +17,15 @@ import DStatTable, {
   DWrapper,
   DStats,
   GrowthInfo,
-  DStatInfo,
+  StatisticInfo,
 } from "./Dashboard.styles";
 
 const Dashboard = () => {
-  const { data: GetAllJobs } = useGetAllJobsQuery([]);
-  const { data: GetAllCandidates } = useGetAllCandidatesQuery([]);
-  if (!GetAllJobs) return null;
-  if (!GetAllCandidates) return null;
-  const totalJobs = Object.values(GetAllJobs).length;
-  const totalCandidates = Object.values(GetAllCandidates).length;
+  const { data: jobs } = useGetAllJobsQuery([]);
+  const { data: candidates } = useGetAllCandidatesQuery([]);
+
+  const totalJobs = !jobs ? 0 : Object.values(jobs).length;
+  const totalCandidates = !candidates ? 0 : Object.values(candidates).length;
 
   return (
     <DWrapper>
@@ -48,21 +47,21 @@ const Dashboard = () => {
             Total 48% growth &#128170;<span> this month</span>
           </GrowthInfo>
           <DStats>
-            <DStatInfo>
+            <StatisticInfo>
               <FcBullish size={56} />
 
               <DStatTable />
-            </DStatInfo>
-            <DStatInfo>
+            </StatisticInfo>
+            <StatisticInfo>
               <FcBusinessContact size={56} />
 
               <DStatTable />
-            </DStatInfo>
-            <DStatInfo>
+            </StatisticInfo>
+            <StatisticInfo>
               <FcMultipleDevices size={56} />
 
               <DStatTable />
-            </DStatInfo>
+            </StatisticInfo>
           </DStats>
         </GeneralContainer>
       </Section>

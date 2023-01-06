@@ -5,12 +5,12 @@ import { BsPeople, BsListStars, BsCalendar3 } from "react-icons/bs";
 
 import { useLocation } from "react-router-dom";
 import {
-  SDivider,
+  Divider,
   SLink,
-  SLinkContainer,
-  SLinkIcon,
-  STitle,
-  SLinkLabel,
+  LinkContainer,
+  LinkIcon,
+  Title,
+  LinkLabel,
   SSidebar,
 } from "./Sidebar.styles";
 
@@ -42,13 +42,7 @@ const linksArray: Link[] = [
   },
 ];
 
-interface Settings {
-  icon?: React.ReactNode;
-  to: string;
-  label: string;
-}
-
-const secondaryLinksArray: Settings[] = [
+const secondaryLinksArray: Link[] = [
   {
     label: "Settings",
     icon: <AiOutlineSetting />,
@@ -61,27 +55,27 @@ const Sidebar: React.FC = () => {
 
   return (
     <SSidebar>
-      <STitle>HR App</STitle>
+      <Title>HR App</Title>
 
-      <SDivider />
+      <Divider />
       {linksArray.map(({ icon, label, to }) => (
-        <SLinkContainer key={label} isActive={pathname === to}>
+        <LinkContainer key={label} isActive={pathname === to}>
           <SLink to={to}>
-            <SLinkIcon>{icon}</SLinkIcon>
-            <SLinkLabel>{label}</SLinkLabel>
+            <LinkIcon>{icon}</LinkIcon>
+            <LinkLabel>{label}</LinkLabel>
           </SLink>
-        </SLinkContainer>
+        </LinkContainer>
       ))}
-      <SDivider />
+      <Divider />
       {secondaryLinksArray.map(({ icon, label, to }) => (
-        <SLinkContainer key={label} isActive={pathname === to}>
+        <LinkContainer key={label} isActive={pathname === to}>
           <SLink to={to}>
-            <SLinkIcon>{icon}</SLinkIcon>
-            <SLinkLabel>{label}</SLinkLabel>
+            <LinkIcon>{icon}</LinkIcon>
+            <LinkLabel>{label}</LinkLabel>
           </SLink>
-        </SLinkContainer>
+        </LinkContainer>
       ))}
-      <SDivider />
+      <Divider />
     </SSidebar>
   );
 };

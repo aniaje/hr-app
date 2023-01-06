@@ -5,11 +5,11 @@ import { BsArrowReturnRight } from "react-icons/bs";
 import {
   Preview,
   PreviewHeader,
-  PreImg,
-  PreCompany,
-  PreTitle,
-  PreDesc,
-  PreDate,
+  Img,
+  Company,
+  Title,
+  Desc,
+  Date,
   Return,
 } from "../Preview.styles";
 
@@ -22,12 +22,12 @@ const JobPreview = () => {
     data && (
       <Preview>
         <PreviewHeader>
-          <PreImg src={data.logo} />
-          <PreCompany>{data.companyName}</PreCompany>
-          <PreDate>{data.date}</PreDate>
-          <PreTitle>{data.title}</PreTitle>
+          <Img src={data.logo} />
+          <Company>{data.companyName}</Company>
+          <Date>{data.date}</Date>
+          <Title>{data.title}</Title>
         </PreviewHeader>
-        <PreDesc>{data.shortDescription}</PreDesc>
+        <Desc>{data.shortDescription}</Desc>
         <Return onClick={() => navigate("/jobs")}>
           {" "}
           <BsArrowReturnRight size={25} />

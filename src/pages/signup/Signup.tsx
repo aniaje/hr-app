@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import api from "utils/api"; // eslint-disable-line no-use-before-define
 import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -11,11 +10,11 @@ import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 
 import {
-  SForm,
-  SFormTitle,
-  SInput,
-  SRedirect,
-  SRedirectLabel,
+  Form,
+  FormTitle,
+  Input,
+  Redirect,
+  RedirectLabel,
   Error,
 } from "../../components/forms/Form.styles";
 
@@ -28,11 +27,6 @@ const defaultData = {
 };
 
 export const SignUp: React.FC = () => {
-  // const [formValue, setFormValue] = useState(defaultData);
-  // const { firstName, lastName, username, password, passwordConfirmation } =
-  //   formValue;
-  console.log("SignUp");
-
   const [
     signupUser,
     {
@@ -72,7 +66,6 @@ export const SignUp: React.FC = () => {
   });
 
   const onSubmit = async (signupData: IFormDataRegister) => {
-    console.log("dupa");
     try {
       const result = await signupUser(signupData);
       notifySignupSuccess();
@@ -87,37 +80,37 @@ export const SignUp: React.FC = () => {
   return (
     <>
       <ToastContainer />
-      <SFormTitle> Sign Up </SFormTitle>
-      <SForm onSubmit={handleSubmit(onSubmit)}>
-        <SInput
+      <FormTitle> Sign Up </FormTitle>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
           {...register("firstname")}
           name="firstname"
           type="text"
           placeholder="First name"
         />
         <Error aria-live="assertive">{errors.firstname?.message}</Error>
-        <SInput
+        <Input
           {...register("lastname")}
           name="lastname"
           type="text"
           placeholder="Last Name"
         />
         <Error aria-live="assertive">{errors.lastname?.message}</Error>
-        <SInput
+        <Input
           {...register("username")}
           name="username"
           type="text"
           placeholder="Email"
         />
         <Error aria-live="assertive">{errors.username?.message}</Error>
-        <SInput
+        <Input
           {...register("password")}
           name="password"
           type="password"
           placeholder="Password"
         />
         <Error aria-live="assertive">{errors.password?.message}</Error>
-        <SInput
+        <Input
           {...register("passwordConfirmation")}
           name="passwordConfirmation"
           type="password"
@@ -131,14 +124,14 @@ export const SignUp: React.FC = () => {
           Sign Up
         </button>
 
-        <SRedirect>
-          <SRedirectLabel>
+        <Redirect>
+          <RedirectLabel>
             Already have an account? <br />
             Then <span> </span>
             <Link to="/signin">Sign in</Link>
-          </SRedirectLabel>
-        </SRedirect>
-      </SForm>
+          </RedirectLabel>
+        </Redirect>
+      </Form>
     </>
   );
 };

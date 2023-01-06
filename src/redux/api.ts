@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getTokenFromLocalStorage } from "auth/common";
+import { APITags } from "./enums";
 
 export const dataApiSlice = createApi({
   baseQuery: fetchBaseQuery({
@@ -14,6 +15,6 @@ export const dataApiSlice = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Job", "Candidate"],
+  tagTypes: [APITags.Candidate, APITags.Job],
   endpoints: () => ({}),
 });

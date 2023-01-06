@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { variables } from "../../styles/variables";
 
-export const SForm = styled.form`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -11,13 +11,13 @@ export const SForm = styled.form`
   padding: ${variables.mdSpacing};
 `;
 
-export const SFormTitle = styled.span`
+export const FormTitle = styled.span`
   font-size: 24px;
   font-weight: 600;
   text-transform: uppercase;
 `;
 
-export const SFormControl = styled.div`
+export const FormControl = styled.div`
   position: relative;
   :first-of-type {
     margin-top: ${variables.mdSpacing};
@@ -27,7 +27,7 @@ export const SFormControl = styled.div`
   }
 `;
 
-export const SShowIcon = styled.button`
+export const ShowIcon = styled.button`
   background-color: transparent;
   font-size: 1rem;
   position: absolute;
@@ -41,18 +41,18 @@ export const SShowIcon = styled.button`
     color: pink;
   }
 `;
-export const SCheckbox = styled.input`
+export const Checkbox = styled.input`
   display: inline;
   vertical-align: middle;
 `;
 
-export const SCheckboxLabel = styled.label`
+export const CheckboxLabel = styled.label`
   display: inline;
   padding-left: 0.2rem;
   font-size: 0.7rem;
 `;
 
-export const SInput = styled.input`
+export const Input = styled.input`
   outline: none;
   position: relative;
   border: 1px solid ${({ theme }) => theme.textFade};
@@ -63,14 +63,14 @@ export const SInput = styled.input`
   border-radius: ${variables.borderRadius};
 `;
 
-export const SLabel = styled.label`
+export const Label = styled.label`
   position: absolute;
   pointer-events: none;
   left: 20px;
   top: 14px;
   transition: 0.3s ease all;
 
-  ${SInput}:focus ~ & {
+  ${Input}:focus ~ & {
     top: 6px;
     left: 5px;
     font-size: 11px;
@@ -78,14 +78,14 @@ export const SLabel = styled.label`
   }
 `;
 
-export const SRedirect = styled.div`
+export const Redirect = styled.div`
   font-size: 12px;
   width: 100%;
   display: flex;
   justify-content: center;
   margin-top: ${variables.smSpacing};
 `;
-export const SRedirectLabel = styled.span`
+export const RedirectLabel = styled.span`
   color: ${({ theme }) => theme.text2};
 `;
 
@@ -97,7 +97,7 @@ export const Error = styled.span`
   margin-bottom: ${variables.smSpacing};
 `;
 
-export const SRedirectLink = styled(Link)`
+export const RedirectLink = styled(Link)`
   color: ${({ theme }) => theme.primary};
   text-decoration: none;
 `;

@@ -17,6 +17,7 @@ export interface ICandidate {
   longDescription: string;
   shortDescription: string;
   position: string;
+  email: string;
 }
 
 export interface IFormDataRegister {

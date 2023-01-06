@@ -14,33 +14,33 @@ export const PreviewHeader = styled.header`
   justify-content: center;
   align-items: center;
 `;
-export const PreImg = styled.img`
+export const Img = styled.img`
   width: min(100% - 1rem, 10rem);
   text-align: center;
 `;
 
-export const PreCompany = styled.h3`
+export const Company = styled.h3`
   font-weight: lighter;
 `;
 
-export const PrePosition = styled.h2`
+export const Position = styled.h2`
   letter-spacing: 0.2rem;
   margin: 0;
 
   text-transform: uppercase;
 `;
-export const PreTitle = styled.h1`
+export const Title = styled.h1`
   color: inherit;
   padding: 2rem 0;
 `;
 
-export const PreDate = styled.p`
+export const Date = styled.p`
   font-size: 0.7rem;
   margin: 0;
   padding: 0;
 `;
 
-export const PreDesc = styled.p`
+export const Desc = styled.p`
   letter-spacing: 0.3rem;
   line-height: 1.5rem;
 `;

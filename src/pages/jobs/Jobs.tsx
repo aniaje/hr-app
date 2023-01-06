@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineEye } from "react-icons/ai";
 import { HiOutlineTrash } from "react-icons/hi";
@@ -7,132 +7,164 @@ import { debounce } from "lodash";
 import { usePagination } from "components/Table/usePagination";
 import Pagination from "components/Table/Pagination";
 import {
-  STable,
-  STableInput,
-  STableInputs,
-  STBody,
-  STBodyTR,
-  STD,
-  STH,
-  STHead,
-  STHeadTR,
-  SActionButton,
+  Table,
+  TableInput,
+  TableInputs,
+  TBody,
+  TBodyTR,
+  TD,
+  TH,
+  THead,
+  THeadTR,
+  ActionButton,
 } from "components/Table/Tables.styles";
 import Select from "components/Table/Select";
 import Checkbox from "components/Table/Checkbox";
 import { IJob } from "types";
 import { useDeleteJobMutation, useGetAllJobsQuery } from "redux/services/jobs";
-// import { toast } from "react-toastify";
 
 const Jobs = () => {
   const [search, setSearch] = useState<string>("");
-  const { data: getAllJobs, error, isLoading } = useGetAllJobsQuery([]);
+  const [checked, setChecked] = useState<string[]>([]);
+
+  const { data: jobs, error, isLoading } = useGetAllJobsQuery([]);
   const { paginatedData, data, pagesCount, setPage, setData, page } =
     usePagination<IJob>();
 
   useEffect(() => {
-    if (getAllJobs) {
-      setData(Object.values(getAllJobs));
+    if (jobs) {
+      setData(Object.values(jobs));
     }
-  }, [getAllJobs]);
+  }, [jobs]);
+
+  // const isCheckAll = checked.length === Object.values(jobs).length
 
   const [deleteJob] = useDeleteJobMutation();
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e?.target?.value);
-    setData(
-      (Object.values(getAllJobs) as IJob[]).filter((offer: IJob) =>
-        offer.title.toLowerCase().includes(e.target.value.toLowerCase())
-      )
-    );
+  const filterData = useCallback(
+    debounce((searchQuery: string) => {
+      setData(
+        (Object.values(jobs) as IJob[]).filter((offer: IJob) =>
+          offer.title.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      );
+    }, 300),
+    [jobs]
+  );
+
+  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      return setChecked([...checked, e.target.value]);
+    }
+    setChecked(checked.filter((item) => item !== e.target.value));
   };
 
-  // const debouncedResults = useMemo(() => {
-  //   return debounce(setData, 300);
-  // }, []);
+  console.log(checked);
 
-  // useEffect(() => {
-  //   return () => {
-  //     debouncedResults.cancel();
-  //   };
-  // });
+  const allChecked = useMemo(() => {
+    return (
+      Boolean(paginatedData.length) &&
+      paginatedData.every((item) => checked.includes(item.id.toString()))
+    );
+  }, [checked, paginatedData]);
+
+  console.log(allChecked);
+
+  const handleAllChecked = () => {
+    if (allChecked) {
+      setChecked([]);
+    } else setChecked(paginatedData.map((item) => String(item.id)));
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e?.target?.value);
+    filterData(e?.target?.value);
+  };
 
   const tableHeads = ["Role", "Date", "Actions"];
   const options = ["Actions:", "Delete"];
 
-  if (paginatedData.length) {
-    return (
-      <>
-        {isLoading && <p>Loading...</p>}
-        {error && <p>oops, an error occured</p>}
+  return (
+    <>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>oops, an error occured</p>}
 
-        <STableInputs>
-          <Select
-            label="Actions:"
-            values={options}
-            onChange={() => console.log()}
-          />
-          <STableInput
-            type="search"
-            value={search}
-            id="search"
-            placeholder="Search role"
-            onChange={handleSearch}
-          />
-        </STableInputs>
+      <TableInputs>
+        <Select
+          label="Actions:"
+          values={options}
+          onChange={() => console.log()}
+        />
+        <TableInput
+          type="search"
+          value={search}
+          id="search"
+          placeholder="Search role"
+          onChange={handleSearch}
+        />
+      </TableInputs>
 
-        <STable>
-          <STHead>
-            <STHeadTR>
-              <STH>
-                <Checkbox value="all" type="checkbox" />
-              </STH>
-              {tableHeads.map((title, index) => (
-                <STH key={index}>{title}</STH>
-              ))}
-            </STHeadTR>
-          </STHead>
-          <STBody>
-            {paginatedData.map((job: IJob) => (
-              <STBodyTR key={job.id}>
-                <STD key={job.id}>
-                  {" "}
-                  <Checkbox value={job.id} type="checkbox" />
-                </STD>
-                <STD>{job.title} </STD>
-                <STD>{job.date}</STD>
-                <STD>
-                  {" "}
-                  <SActionButton>
-                    <Link to={`/jobs/preview/${job.id}`}>
-                      <AiOutlineEye />
-                    </Link>
-                  </SActionButton>
-                  <SActionButton
-                    type="button"
-                    key={job.id}
-                    onClick={() => deleteJob(job.id)}
-                  >
-                    <HiOutlineTrash />
-                  </SActionButton>
-                </STD>
-              </STBodyTR>
+      <Table>
+        <THead>
+          <THeadTR>
+            <TH>
+              <Checkbox
+                readOnly
+                type="checkbox"
+                name="selectAll"
+                id="selectAll"
+                checked={allChecked}
+                onChange={handleAllChecked}
+              />
+            </TH>
+            {tableHeads.map((title, index) => (
+              <TH key={index}>{title}</TH>
             ))}
-          </STBody>
-        </STable>
+          </THeadTR>
+        </THead>
+        <TBody>
+          {paginatedData.map((job: IJob) => (
+            <TBodyTR key={job.id}>
+              <TD key={job.id}>
+                {" "}
+                <Checkbox
+                  value={job.id}
+                  type="checkbox"
+                  checked={checked.includes(job.id.toString())}
+                  onChange={handleCheck}
+                />
+              </TD>
+              <TD>{job.title} </TD>
+              <TD>{job.date}</TD>
+              <TD>
+                {" "}
+                <ActionButton>
+                  <Link to={`/jobs/preview/${job.id}`}>
+                    <AiOutlineEye />
+                  </Link>
+                </ActionButton>
+                <ActionButton
+                  type="button"
+                  key={job.id}
+                  onClick={() => deleteJob(job.id)}
+                >
+                  <HiOutlineTrash />
+                </ActionButton>
+              </TD>
+            </TBodyTR>
+          ))}
+        </TBody>
+      </Table>
 
-        {pagesCount > 1 ? (
-          <Pagination
-            onChange={(page) => setPage(page)}
-            pagesCount={pagesCount}
-            page={page}
-          />
-        ) : null}
-      </>
-    );
-  } else {
-    return <h2>nothing to display</h2>;
-  }
+      {pagesCount && (
+        <Pagination
+          onChange={(currentPage) => setPage(currentPage)}
+          pagesCount={pagesCount}
+          page={page}
+        />
+      )}
+    </>
+  );
 };
 
 export default Jobs;

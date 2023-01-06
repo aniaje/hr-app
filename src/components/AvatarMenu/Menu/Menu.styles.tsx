@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
-interface SMenuProps {
+interface MenuProps {
   open: boolean;
   onClick?: () => void;
 }
 
-export const StyledMenu = styled.nav<SMenuProps>`
+export const StyledMenu = styled.nav<MenuProps>`
   flex-direction: column;
   justify-content: center;
   background: ${({ theme }) => theme.bg2};
-  display: ${({ open }: SMenuProps) => (open ? "block" : "none")};
+  display: ${({ open }: MenuProps) => (open ? "block" : "none")};
   height: max-content;
   text-align: left;
   padding: 1rem;
@@ -49,7 +49,7 @@ export const StyledMenu = styled.nav<SMenuProps>`
   }
 `;
 
-export const SLogout = styled.button`
+export const Logout = styled.button`
   display: flex;
   width: 100%;
   background: whitesmoke;
@@ -59,7 +59,7 @@ export const SLogout = styled.button`
   font-size: 0.8rem;
   justify-content: space-around;
   font-weight: lighter;
-  color: ingerit
+  color: ingerit;
   align-items: center;
   padding: 0.3rem;
   cursor: pointer;

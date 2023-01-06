@@ -8,7 +8,7 @@ export const SLayout = styled.div`
   border-radius: 2rem;
 `;
 
-export const SMainContainer = styled.main`
+export const MainContainer = styled.main`
   overflow-x: auto;
   background-color: #fff;
   position: relative;
@@ -19,10 +19,10 @@ export const SMainContainer = styled.main`
   position: relative;
 `;
 
-export const SMenuWrapper = styled.div`
+export const MenuWrapper = styled.div`
   overflow-x: hidden;
 `;
-export const SMenu = styled.div`
+export const Menu = styled.div`
   border: 2px solid pink;
   display: flex;
   background-color: #dce4ff;
@@ -34,6 +34,3 @@ export const SMenu = styled.div`
     outline: none;
   }
 `;
-// /* @media screen and (min-width: 320px) and (max-width: 1080px) {
-//     height: 100%;
-//   } */

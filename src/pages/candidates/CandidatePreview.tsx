@@ -4,13 +4,13 @@ import { BsArrowReturnRight } from "react-icons/bs";
 import { useGetOneCandidateQuery } from "redux/services/candidates";
 import {
   Preview,
-  PreImg,
+  Img,
   PreviewHeader,
-  PreCompany,
-  PreTitle,
-  PrePosition,
-  PreDesc,
-  PreDate,
+  Company,
+  Title,
+  Position,
+  Desc,
+  Date,
   Return,
 } from "../Preview.styles";
 
@@ -18,19 +18,18 @@ const CandidatePreview = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
   const { data } = useGetOneCandidateQuery(id);
-  console.log(data);
 
   return (
     data && (
       <Preview>
         <PreviewHeader>
-          <PreImg src={data.logo} />
-          <PreCompany>{data.companyName}</PreCompany>
-          <PreDate>{data.date}</PreDate>
-          <PreTitle>{data.name}</PreTitle>
+          <Img src={data.logo} />
+          <Company>{data.companyName}</Company>
+          <Date>{data.date}</Date>
+          <Title>{data.name}</Title>
         </PreviewHeader>
-        <PrePosition>{data.position}</PrePosition>
-        <PreDesc>{data.shortDescription}</PreDesc>
+        <Position>{data.position}</Position>
+        <Desc>{data.shortDescription}</Desc>
         <Return onClick={() => navigate("/candidates")}>
           {" "}
           <BsArrowReturnRight size={25} />

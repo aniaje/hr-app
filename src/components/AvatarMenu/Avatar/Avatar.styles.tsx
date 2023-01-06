@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-interface SAvatarProps extends React.HTMLProps<HTMLButtonElement> {
+interface AvatarProps extends React.HTMLProps<HTMLButtonElement> {
   open: boolean;
 }
 
-export const SAvatar = styled.button<SAvatarProps>`
+export const Avatar = styled.button<AvatarProps>`
   position: absolute;
   top: 5%;
   right: 2rem;
@@ -23,7 +23,7 @@ export const SAvatar = styled.button<SAvatarProps>`
 
   &:focus {
     outline: none;
-    background: ${({ open }: SAvatarProps) => (open ? "white" : "transparent")};
+    background: ${({ open }: AvatarProps) => (open ? "white" : "transparent")};
   }
 
   &:after {
