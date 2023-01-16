@@ -1,9 +1,14 @@
 import React from "react";
 
-import { AiOutlineHome, AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineHome } from "react-icons/ai";
+import { Link } from "types";
 import { BsPeople, BsListStars, BsCalendar3 } from "react-icons/bs";
-
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import { uiActions } from "redux/uiSlice";
 import { useLocation } from "react-router-dom";
+import { CgSun } from "react-icons/cg";
+import { HiMoon } from "react-icons/hi";
 import {
   Divider,
   SLink,
@@ -13,12 +18,8 @@ import {
   LinkLabel,
   SSidebar,
 } from "./Sidebar.styles";
+import { Toggle } from "../Toggle.styles";
 
-interface Link {
-  icon?: React.ReactNode;
-  label: string;
-  to: string;
-}
 const linksArray: Link[] = [
   {
     label: "Home",
@@ -42,16 +43,17 @@ const linksArray: Link[] = [
   },
 ];
 
-const secondaryLinksArray: Link[] = [
-  {
-    label: "Settings",
-    icon: <AiOutlineSetting />,
-    to: "/",
-  },
-];
-
 const Sidebar: React.FC = () => {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const { theme } = useSelector((state: RootState) => state.ui);
+
+  const toggleThemeHandler = () => {
+    dispatch(uiActions.toggleTheme());
+  };
+
+  const themeIcon =
+    theme === "light" ? <HiMoon size={16} /> : <CgSun size={16} />;
 
   return (
     <SSidebar>
@@ -66,15 +68,8 @@ const Sidebar: React.FC = () => {
           </SLink>
         </LinkContainer>
       ))}
-      <Divider />
-      {secondaryLinksArray.map(({ icon, label, to }) => (
-        <LinkContainer key={label} isActive={pathname === to}>
-          <SLink to={to}>
-            <LinkIcon>{icon}</LinkIcon>
-            <LinkLabel>{label}</LinkLabel>
-          </SLink>
-        </LinkContainer>
-      ))}
+
+      <Toggle onClick={toggleThemeHandler}>{themeIcon}</Toggle>
       <Divider />
     </SSidebar>
   );

@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import JobPreview from "pages/jobs/JobPreview";
@@ -9,17 +11,19 @@ import { Homepage } from "./pages/Homepage";
 import { SignIn } from "./pages/signin/Signin";
 import { SignUp } from "./pages/signup/Signup";
 import Dashboard from "./pages/dashboard/Dashboard";
-import Profile from "./pages/Profile";
+import Profile from "./pages/profile/Profile";
 import AuthLayout from "./components/layouts/AuthLayout";
 import Layout from "./components/layouts/Layout";
 import ProtectedRoute from "./auth/ProtectedRoute";
-import { lightTheme } from "./styles/theme";
+import { lightTheme, darkTheme } from "./styles/theme";
 import GlobalStyle from "./styles/globalStyle";
 
 const App: React.FC = () => {
-  const themeStyle = lightTheme;
+  const { theme } = useSelector((state: RootState) => state.ui);
+  const currentTheme = theme === "light" ? lightTheme : darkTheme;
+
   return (
-    <ThemeProvider theme={themeStyle}>
+    <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
 
       <Router>

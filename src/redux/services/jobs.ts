@@ -1,16 +1,6 @@
 import { dataApiSlice } from "../api";
 import { APITags } from "../enums";
 
-export interface IJob {
-  companyName: string;
-  date: string;
-  id: number;
-  logo: string;
-  longDescription: string;
-  shortDescription: string;
-  title: string;
-}
-
 const jobsApi = dataApiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllJobs: builder.query({
@@ -32,9 +22,16 @@ const jobsApi = dataApiSlice.injectEndpoints({
     }),
 
     addJob: builder.mutation({
-      query: (job: IJob) => ({
+      query: (body: {
+        title: string;
+        shortDescription: string;
+        longDescription: string;
+        logo: string;
+        companyName: string;
+      }) => ({
         url: "/jobs",
         method: "POST",
+        body,
       }),
       invalidatesTags: [APITags.Job],
     }),

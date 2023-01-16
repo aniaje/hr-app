@@ -39,3 +39,15 @@ export interface IFormDataLogin {
   access_token: string;
   onClick: () => void;
 }
+
+export interface StatData {
+  title: string;
+  stat: string;
+  icon: React.ReactNode;
+}
+
+export interface Link {
+  icon?: React.ReactNode;
+  label: string;
+  to: string;
+}

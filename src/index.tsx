@@ -1,10 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import ReactDOM from "react-dom/client";
-import { dataApiSlice } from "redux/api";
 import { store } from "redux/store";
 import { Provider } from "react-redux";
-import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 import App from "./App";
 
 const Wrapper = styled.div`
@@ -12,6 +10,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background: ${({ theme }) => theme.bg};
 `;
 
 const root = ReactDOM.createRoot(

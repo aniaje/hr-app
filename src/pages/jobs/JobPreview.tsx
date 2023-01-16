@@ -1,4 +1,3 @@
-import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetOneJobQuery } from "redux/services/jobs";
 import { BsArrowReturnRight } from "react-icons/bs";

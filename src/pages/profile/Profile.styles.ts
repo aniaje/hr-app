@@ -6,7 +6,7 @@ export const Detail = styled.span`
   gap: 1rem;
 
   p {
-    color: darkblue;
+    color: ${({ theme }) => theme.textSecondary2};
   }
 `;
 
@@ -19,4 +19,5 @@ export const ProfileTitle = styled.h1`
 export const ProfileWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  color: ${({ theme }) => theme.text};
 `;

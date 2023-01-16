@@ -31,8 +31,7 @@ const defaultData = {
 
 export const SignIn: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [signinUser, { data, isLoading, error, isError, isSuccess }] =
-    useSigninUserMutation();
+  const [signinUser, { isLoading, error }] = useSigninUserMutation();
   const [passwordShown, setPasswordShown] = useState(false);
   const navigate = useNavigate();
 

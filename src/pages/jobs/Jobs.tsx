@@ -1,9 +1,11 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { AiOutlineEye } from "react-icons/ai";
 import { HiOutlineTrash } from "react-icons/hi";
 import { debounce } from "lodash";
-
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
+import { Button, Container } from "components/Modal/Modal.styles";
 import { usePagination } from "components/Table/usePagination";
 import Pagination from "components/Table/Pagination";
 import {
@@ -17,19 +19,41 @@ import {
   THead,
   THeadTR,
   ActionButton,
+  ActionButtonFav,
 } from "components/Table/Tables.styles";
-import Select from "components/Table/Select";
 import Checkbox from "components/Table/Checkbox";
 import { IJob } from "types";
-import { useDeleteJobMutation, useGetAllJobsQuery } from "redux/services/jobs";
+import {
+  useDeleteJobMutation,
+  useGetAllJobsQuery,
+  useAddJobMutation,
+} from "redux/services/jobs";
+import { useFavorites, FavouriteType } from "hooks";
+import {
+  Form,
+  FormControl,
+  Input,
+  InputTextarea,
+} from "components/forms/Form.styles";
+import { notifyError } from "utils/toast/toastNotify";
+import { Modal } from "components/Modal/Modal";
 
 const Jobs = () => {
   const [search, setSearch] = useState<string>("");
   const [checked, setChecked] = useState<string[]>([]);
 
+  const { update, get } = useFavorites(FavouriteType.JOBS);
+  const [favorites, setFavorites] = useState<number[]>(get());
+
   const { data: jobs, error, isLoading } = useGetAllJobsQuery([]);
-  const { paginatedData, data, pagesCount, setPage, setData, page } =
+  const { paginatedData, pagesCount, setPage, setData, page } =
     usePagination<IJob>();
+
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const toggleModal = () => {
+    setShowModal((prev) => !prev);
+  };
 
   useEffect(() => {
     if (jobs) {
@@ -37,9 +61,34 @@ const Jobs = () => {
     }
   }, [jobs]);
 
-  // const isCheckAll = checked.length === Object.values(jobs).length
-
   const [deleteJob] = useDeleteJobMutation();
+  const [addJob] = useAddJobMutation();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid, isDirty },
+  } = useForm<IJob>({
+    mode: "onBlur",
+  });
+
+  const createJob = async (data: IJob) => {
+    try {
+      console.log(data);
+      const result = await addJob(data).unwrap();
+      setShowModal(false);
+      console.log(result);
+    } catch (err) {
+      if (errors) {
+        console.error("error", err);
+      }
+      notifyError();
+    }
+  };
+
+  const handleDeleteJobs = () => {
+    checked.map((item) => deleteJob(Number(item)));
+  };
 
   const filterData = useCallback(
     debounce((searchQuery: string) => {
@@ -56,19 +105,15 @@ const Jobs = () => {
     if (e.target.checked) {
       return setChecked([...checked, e.target.value]);
     }
-    setChecked(checked.filter((item) => item !== e.target.value));
+    return setChecked(checked.filter((item) => item !== e.target.value));
   };
 
-  console.log(checked);
-
-  const allChecked = useMemo(() => {
-    return (
+  const allChecked = useMemo(
+    () =>
       Boolean(paginatedData.length) &&
-      paginatedData.every((item) => checked.includes(item.id.toString()))
-    );
-  }, [checked, paginatedData]);
-
-  console.log(allChecked);
+      paginatedData.every((item) => checked.includes(item.id.toString())),
+    [checked, paginatedData]
+  );
 
   const handleAllChecked = () => {
     if (allChecked) {
@@ -81,8 +126,20 @@ const Jobs = () => {
     filterData(e?.target?.value);
   };
 
-  const tableHeads = ["Role", "Date", "Actions"];
-  const options = ["Actions:", "Delete"];
+  const handleFav = (id: number) => {
+    if (!favorites.includes(id)) {
+      update([...favorites, id]);
+
+      setFavorites([...favorites, id]);
+
+      return;
+    }
+
+    setFavorites(favorites.filter((item) => item !== id));
+    update(favorites.filter((item) => item !== id));
+  };
+
+  const tableHeads = ["Role", "Date", "Actions", "Fav"];
 
   return (
     <>
@@ -90,26 +147,73 @@ const Jobs = () => {
       {error && <p>oops, an error occured</p>}
 
       <TableInputs>
-        <Select
-          label="Actions:"
-          values={options}
-          onChange={() => console.log()}
-        />
+        <button type="button" onClick={handleDeleteJobs}>
+          <HiOutlineTrash />
+        </button>
         <TableInput
           type="search"
           value={search}
           id="search"
           placeholder="Search role"
           onChange={handleSearch}
-        />
+        />{" "}
+        <Button onClick={toggleModal}>Add Job</Button>
       </TableInputs>
+      <Container>
+        <Modal showModal={showModal} handleCloseModal={toggleModal}>
+          <Form onSubmit={handleSubmit(createJob)}>
+            <FormControl>
+              <Input
+                {...register("title")}
+                name="title"
+                type="text"
+                placeholder="Job Title"
+              />
+            </FormControl>
+            <FormControl>
+              <Input
+                {...register("shortDescription")}
+                placeholder="shortDescription"
+                name="shortDescription"
+                type="text"
+              />
+            </FormControl>
+            <FormControl>
+              <InputTextarea
+                {...register("longDescription")}
+                placeholder="longDescription"
+                name="longDescription"
+              />
+            </FormControl>
 
+            <FormControl>
+              <Input
+                {...register("logo")}
+                placeholder="logo"
+                name="logo"
+                type="logo"
+              />
+            </FormControl>
+            <FormControl>
+              <Input
+                {...register("companyName")}
+                placeholder="Company Name"
+                name="companyName"
+                type="text"
+              />
+            </FormControl>
+
+            <button disabled={!isValid && !isDirty} type="submit">
+              add
+            </button>
+          </Form>
+        </Modal>
+      </Container>
       <Table>
         <THead>
           <THeadTR>
             <TH>
               <Checkbox
-                readOnly
                 type="checkbox"
                 name="selectAll"
                 id="selectAll"
@@ -150,6 +254,15 @@ const Jobs = () => {
                 >
                   <HiOutlineTrash />
                 </ActionButton>
+              </TD>
+              <TD>
+                <ActionButtonFav key={job.id} onClick={() => handleFav(job.id)}>
+                  {favorites.includes(job.id) ? (
+                    <BsSuitHeartFill />
+                  ) : (
+                    <BsSuitHeart />
+                  )}
+                </ActionButtonFav>
               </TD>
             </TBodyTR>
           ))}

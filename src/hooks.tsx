@@ -17,3 +17,18 @@ export const useOnClickOutside = (
     };
   }, [ref, handler]);
 };
+
+export enum FavouriteType {
+  JOBS = "JOBS",
+  CANDIDATES = "CANDIDATES",
+}
+
+export const useFavorites = (type: FavouriteType) => {
+  const update = (data: number[]) => {
+    localStorage.setItem(type, JSON.stringify(data));
+  };
+  const get = (): number[] => {
+    return JSON.parse(localStorage.getItem(type) || "[]");
+  };
+  return { update, get };
+};

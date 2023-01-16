@@ -7,6 +7,7 @@ import { IFormDataRegister } from "types";
 import { useSignupUserMutation } from "redux/services/user";
 import { notifySignupSuccess, notifyError } from "utils/toast/toastNotify";
 import "react-toastify/dist/ReactToastify.css";
+
 import * as yup from "yup";
 
 import {
@@ -65,13 +66,11 @@ export const SignUp: React.FC = () => {
     resolver: yupResolver(registerValidation),
   });
 
-  const onSubmit = async (signupData: IFormDataRegister) => {
+  const onSubmit = async (data: IFormDataRegister) => {
     try {
-      const result = await signupUser(signupData);
+      const result = await signupUser(data).unwrap();
       notifySignupSuccess();
-      if (!isRegisterSuccess) {
-        setTimeout(() => navigate("/signin"), 2000);
-      }
+      setTimeout(() => navigate("/signin"), 2000);
     } catch (error) {
       notifyError();
     }

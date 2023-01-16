@@ -4,7 +4,7 @@ export const StyledSubmitInput = styled.button`
   font-size: 1rem;
   font-weight: 200;
   background-color: lightsalmon;
-  color: white;
+  color: ${({ theme }) => theme.text2};
   padding: 0.7rem 1.5rem;
   width: 100%;
   margin: 5px 0;
@@ -29,6 +29,7 @@ const StyledButton = styled.button`
   font-size: 1rem;
   font-weight: 200;
   background-color: lightsalmon;
+  color: ${({ theme }) => theme.text2};
   padding: 0.7rem 1.5rem;
   width: 100%;
   margin: 5px 0;

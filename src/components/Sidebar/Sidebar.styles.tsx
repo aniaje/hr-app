@@ -6,7 +6,8 @@ import { variables } from "../../styles/variables";
 export const SSidebar = styled.nav`
   width: fit-content;
   flex-shrink: 0;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.bg};
+  color: ${({ theme }) => theme.text};
   height: 100vh;
   padding-top: 1rem;
   position: relative;
@@ -34,11 +35,11 @@ interface LinkContainerProps {
 }
 export const LinkContainer = styled.div<LinkContainerProps>`
   background: ${({ theme, isActive }) =>
-    !isActive ? `transparent` : theme.bg3};
+    !isActive ? `transparent` : theme.bg};
   border-radius: ${variables.borderRadius};
   margin: 8px 0;
   :hover {
-    box-shadow: inset 0 0 0 1px ${({ theme }) => theme.bg3};
+    box-shadow: inset 0 0 0 1px ${({ theme }) => theme.bg2};
   }
 `;
 
@@ -48,12 +49,12 @@ export const SLink = styled(Link)`
   white-space: nowrap;
   align-items: center;
   text-decoration: none;
-  color: inherit;
+  color: ${({ theme }) => theme.text};
   font-size: 16px;
   cursor: pointer;
   padding: calc(${variables.smSpacing} - 2px) 0;
   &:hover {
-    color: black;
+    color: ${({ theme }) => theme.text2};
   }
 `;
 
@@ -67,7 +68,7 @@ export const LinkIcon = styled.div`
 
 export const LinkLabel = styled.span`
   display: block;
-  color: black;
+  color: ${({ theme }) => theme.text};
   flex: 1;
   margin: ${variables.smSpacing};
   display: none;

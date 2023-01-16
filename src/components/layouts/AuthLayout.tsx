@@ -1,6 +1,6 @@
-import { Container } from "./Container";
-import { Outlet } from "react-router-dom";
 import styled from "styled-components";
+import { Outlet } from "react-router-dom";
+import { Container } from "./Container";
 
 const AuthLayoutWrapper = styled.main`
   position: relative;
@@ -11,7 +11,8 @@ const AuthLayoutWrapper = styled.main`
   max-width: 100%;
   padding: 40px 20px;
   overflow: hidden;
-  background-color: white;
+  background-color: ${({ theme }) => theme.bg2};
+  color: ${({ theme }) => theme.text};
   border-radius: 5px;
   box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.3);
 `;

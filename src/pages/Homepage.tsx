@@ -6,7 +6,9 @@ import { Button } from "../components/AvatarMenu/Button";
 const Title = styled.h2`
   font-size: 2em;
   text-align: center;
-  color: black;
+  color: ${({ theme }) => theme.text2};
+  padding-bottom: 2rem;
+  font-weight: 300;
 `;
 
 export const Homepage: FC = () => {

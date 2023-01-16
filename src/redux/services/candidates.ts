@@ -25,9 +25,18 @@ const candidatesApi = dataApiSlice.injectEndpoints({
       }
     ),
     addCandidate: builder.mutation({
-      query: (candidate) => ({
+      query: (body: {
+        name: string;
+        companyName: string;
+        logo: string;
+        longDescription: string;
+        shortDescription: string;
+        position: string;
+        email: string;
+      }) => ({
         url: "/candidates",
         method: "POST",
+        body,
       }),
       invalidatesTags: [APITags.Candidate],
     }),

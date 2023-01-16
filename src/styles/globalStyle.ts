@@ -1,8 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
-
-
 *,
     *::after,
     *::before {
@@ -11,8 +9,6 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        background: rgb(243, 243, 243);
-        color: rgb(51, 51, 51);
         font-family: 'Karla', 'Times New Roman', Times, serif !important;
         letter-spacing: .6px;
     }

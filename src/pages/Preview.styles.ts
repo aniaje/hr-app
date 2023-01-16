@@ -6,6 +6,7 @@ export const Preview = styled.div`
   display: flex;
   gap: 2rem;
   flex-direction: column;
+  color: ${({ theme }) => theme.text};
 `;
 
 export const PreviewHeader = styled.header`

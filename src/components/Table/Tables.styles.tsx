@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { variables } from "../../styles/variables";
 
 export const Table = styled.table`
-  width: 70%;
+  width: 80%;
 
   border-collapse: collapse;
   text-align: left;
@@ -22,20 +22,23 @@ interface ActionButtonProps {
 export const ActionButton = styled.button<ActionButtonProps>`
   border: none;
   outline: none;
-  color: #111;
-
+  color: ${({ theme }) => theme.text};
   background-color: transparent;
   a {
-    color: #0035c5;
+    color: ${({ theme }) => theme.text};
     text-decoration: none !important;
     cursor: pointer;
   }
   :hover,
   a:hover {
-    color: #c58600;
     text-decoration: none;
+    transform: scale(1.1);
     cursor: pointer;
   }
+`;
+
+export const ActionButtonFav = styled(ActionButton)`
+  color: red;
 `;
 
 export const TableInput = styled.input`
@@ -64,6 +67,7 @@ export const TableInput = styled.input`
 
 export const TableInputs = styled.div`
   display: flex;
+  padding-bottom: 1rem;
 `;
 
 export const THead = styled.thead``;

@@ -4,13 +4,14 @@ export const SLayout = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
-  background: ${({ theme }) => theme.bg};
+  background: ${({ theme }) => theme.bg2};
   border-radius: 2rem;
+  color: ${({ theme }) => theme.text};
 `;
 
 export const MainContainer = styled.main`
   overflow-x: auto;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.bg};
   position: relative;
   flex-shrink: 1;
   padding: 3rem;
@@ -25,7 +26,7 @@ export const MenuWrapper = styled.div`
 export const Menu = styled.div`
   border: 2px solid pink;
   display: flex;
-  background-color: #dce4ff;
+  color: ${({ theme }) => theme.bg};
   border-top-right-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
   color: #464646;

@@ -22,7 +22,7 @@ export const StyledMenu = styled.nav<MenuProps>`
   border-radius: 1rem;
 
   @media (max-width: ${({ theme }) => theme.mobile}) {
-    width: 100%;
+    width: 50%;
   }
   span {
     padding-left: 0.5rem;
@@ -52,14 +52,13 @@ export const StyledMenu = styled.nav<MenuProps>`
 export const Logout = styled.button`
   display: flex;
   width: 100%;
-  background: whitesmoke;
   border: none;
   border-radius: 5px;
   display: flex;
   font-size: 0.8rem;
   justify-content: space-around;
   font-weight: lighter;
-  color: ingerit;
+  color: inherit;
   align-items: center;
   padding: 0.3rem;
   cursor: pointer;

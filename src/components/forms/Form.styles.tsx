@@ -61,6 +61,19 @@ export const Input = styled.input`
   font-size: 14px;
   margin: 5px 0;
   border-radius: ${variables.borderRadius};
+  font-family: inherit;
+`;
+
+export const InputTextarea = styled.textarea`
+  outline: none;
+  position: relative;
+  border: 1px solid ${({ theme }) => theme.textFade};
+  width: 100%;
+  padding: ${variables.smSpacing};
+  font-size: 14px;
+  margin: 5px 0;
+  border-radius: ${variables.borderRadius};
+  font-family: inherit;
 `;
 
 export const Label = styled.label`

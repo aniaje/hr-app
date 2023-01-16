@@ -40,7 +40,7 @@ export const GeneralContainer = styled.div`
   align-items: center;
   padding: 2rem 2rem;
   border-radius: 1rem;
-  background-color: #fefefe;
+  background: ${({ theme }) => theme.bg2};
   @media screen and (min-width: 320px) and (max-width: 1080px) {
     height: max-content;
     display: flex;
@@ -55,12 +55,11 @@ export const GeneralContainer = styled.div`
 export const Card = styled.div`
   height: max-content;
   width: 100%;
-  background: rgba(255, 170, 55, 0.05312062324929976);
-
+  background: ${({ theme }) => theme.bg2};
   text-align: center;
   border-radius: 1rem;
   padding: 1.5rem 2rem;
-  transition: 0.4s ease-in-out;
+  transition: all 0.1s linear;
 
   @media screen and (min-width: 190px) and (max-width: 1080px) {
     width: 80%; //height: max-content;
@@ -113,19 +112,10 @@ export const StatisticInfo = styled.div`
   }
 `;
 
-const DTextContainer = styled.div`
+export const TextContainer = styled.div`
   padding-left: 0.2rem;
 `;
 
-const DStatTitle = styled.p`
+export const StatTitle = styled.p`
   font-size: ${variables.sTitle};
 `;
-
-const DStatTable = () => (
-  <DTextContainer>
-    <DStatTitle>Candidates</DStatTitle>
-    <Title>245k</Title>
-  </DTextContainer>
-);
-
-export default DStatTable;
