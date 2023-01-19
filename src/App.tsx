@@ -17,6 +17,7 @@ import Layout from "./components/layouts/Layout";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import { lightTheme, darkTheme } from "./styles/theme";
 import GlobalStyle from "./styles/globalStyle";
+import { CalendarHR } from "components/Calendar";
 
 const App: React.FC = () => {
   const { theme } = useSelector((state: RootState) => state.ui);
@@ -47,12 +48,12 @@ const App: React.FC = () => {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/jobs/preview/:id" element={<JobPreview />} />
-
             <Route path="/candidates" element={<Candidates />} />
             <Route
               path="/candidates/preview/:id"
               element={<CandidatePreview />}
             />
+            <Route path="/calendar" element={<CalendarHR />} />
           </Route>
         </Routes>
       </Router>

@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { AiOutlineEye } from "react-icons/ai";
 import { HiOutlineTrash } from "react-icons/hi";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { usePagination } from "components/Table/usePagination";
 import Pagination from "components/Table/Pagination";
+import { Modal } from "components/Modal/Modal";
 import {
   useGetAllCandidatesQuery,
   useDeleteCandidateMutation,
@@ -12,15 +16,13 @@ import {
 } from "redux/services/candidates";
 import { debounce } from "lodash";
 import { ICandidate } from "types";
-import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { notifyError } from "utils/toast/toastNotify";
-
-import { Modal } from "components/Modal/Modal";
 import {
   Form,
   FormControl,
   Input,
   InputTextarea,
+  Error,
 } from "components/forms/Form.styles";
 import { Button, Container } from "components/Modal/Modal.styles";
 import {
@@ -54,11 +56,32 @@ const Candidates = () => {
   };
   const [addCandidate] = useAddCandidateMutation();
 
+  const defaultData = {
+    name: "",
+    position: "",
+    email: "",
+    shortDescription: "",
+    longDescription: "",
+    logo: "",
+    companyName: "",
+  };
+  const createCandidateValidation = yup.object().shape({
+    name: yup.string().required("Please Enter Candidate Name"),
+    position: yup.string().required("Please Enter Candidate Position"),
+    shortDescription: yup.string().required("Please Enter Short Description"),
+    longDescription: yup.string().required("Please Enter Short Description"),
+    logo: yup.string().required("Please Enter Logo URL"),
+    email: yup.string().email().required("Please Enter E-mail"),
+    companyName: yup.string().required("Please Enter Company Name"),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
   } = useForm<ICandidate>({
+    defaultValues: defaultData,
+    resolver: yupResolver(createCandidateValidation),
     mode: "onBlur",
   });
 
@@ -147,10 +170,10 @@ const Candidates = () => {
           id="search"
           type="search"
           value={search}
-          placeholder="Search candidate"
+          placeholder="Search"
           onChange={handleSearch}
         />
-        <Button onClick={toggleModal}>Add Candidate</Button>
+        <Button onClick={toggleModal}>Add</Button>
       </TableInputs>
       <Container>
         <Modal showModal={showModal} handleCloseModal={toggleModal}>
@@ -163,14 +186,16 @@ const Candidates = () => {
                 placeholder="Name"
               />
             </FormControl>
+            <Error>{errors.name?.message}</Error>
             <FormControl>
               <Input
                 {...register("position")}
-                name="title"
+                name="position"
                 type="text"
                 placeholder="Position"
               />
             </FormControl>
+            <Error>{errors.position?.message}</Error>
             <FormControl>
               <Input
                 {...register("email")}
@@ -179,30 +204,7 @@ const Candidates = () => {
                 type="text"
               />
             </FormControl>
-            <FormControl>
-              <Input
-                {...register("shortDescription")}
-                placeholder="shortDescription"
-                name="shortDescription"
-                type="text"
-              />
-            </FormControl>
-            <FormControl>
-              <InputTextarea
-                {...register("longDescription")}
-                placeholder="longDescription"
-                name="longDescription"
-              />
-            </FormControl>
-
-            <FormControl>
-              <Input
-                {...register("logo")}
-                placeholder="logo"
-                name="logo"
-                type="logo"
-              />
-            </FormControl>
+            <Error>{errors.email?.message}</Error>
             <FormControl>
               <Input
                 {...register("companyName")}
@@ -211,6 +213,33 @@ const Candidates = () => {
                 type="text"
               />
             </FormControl>
+            <Error>{errors.companyName?.message}</Error>
+            <FormControl>
+              <Input
+                {...register("shortDescription")}
+                placeholder="shortDescription"
+                name="shortDescription"
+                type="text"
+              />
+            </FormControl>
+            <Error>{errors.shortDescription?.message}</Error>
+            <FormControl>
+              <Input
+                {...register("logo")}
+                placeholder="logo"
+                name="logo"
+                type="logo"
+              />
+            </FormControl>
+            <Error>{errors.logo?.message}</Error>
+            <FormControl>
+              <InputTextarea
+                {...register("longDescription")}
+                placeholder="longDescription"
+                name="longDescription"
+              />
+            </FormControl>
+            <Error>{errors.longDescription?.message}</Error>
 
             <button disabled={!isValid && !isDirty} type="submit">
               add

@@ -1,13 +1,19 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { useFavorites, FavouriteType } from "hooks";
+import { IJob } from "types";
 import { AiOutlineEye } from "react-icons/ai";
+import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
 import { HiOutlineTrash } from "react-icons/hi";
 import { debounce } from "lodash";
-import { BsSuitHeart, BsSuitHeartFill } from "react-icons/bs";
+import { notifyError } from "utils/toast/toastNotify";
 import { Button, Container } from "components/Modal/Modal.styles";
 import { usePagination } from "components/Table/usePagination";
 import Pagination from "components/Table/Pagination";
+import { Modal } from "components/Modal/Modal";
 import {
   Table,
   TableInput,
@@ -22,26 +28,23 @@ import {
   ActionButtonFav,
 } from "components/Table/Tables.styles";
 import Checkbox from "components/Table/Checkbox";
-import { IJob } from "types";
+
 import {
   useDeleteJobMutation,
   useGetAllJobsQuery,
   useAddJobMutation,
 } from "redux/services/jobs";
-import { useFavorites, FavouriteType } from "hooks";
 import {
   Form,
   FormControl,
   Input,
   InputTextarea,
+  Error,
 } from "components/forms/Form.styles";
-import { notifyError } from "utils/toast/toastNotify";
-import { Modal } from "components/Modal/Modal";
 
 const Jobs = () => {
   const [search, setSearch] = useState<string>("");
   const [checked, setChecked] = useState<string[]>([]);
-
   const { update, get } = useFavorites(FavouriteType.JOBS);
   const [favorites, setFavorites] = useState<number[]>(get());
 
@@ -64,12 +67,30 @@ const Jobs = () => {
   const [deleteJob] = useDeleteJobMutation();
   const [addJob] = useAddJobMutation();
 
+  const defaultData = {
+    title: "",
+    shortDescription: "",
+    longDescription: "",
+    logo: "",
+    companyName: "",
+  };
+
+  const createJobValidation = yup.object().shape({
+    title: yup.string().required("Please Enter Job Title"),
+    shortDescription: yup.string().required("Please Enter Short Description"),
+    longDescription: yup.string().required("Please Enter Short Description"),
+    logo: yup.string().required("Please Enter Logo URL"),
+    companyName: yup.string().required("Please Enter Company Name"),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isDirty },
   } = useForm<IJob>({
     mode: "onBlur",
+    defaultValues: defaultData,
+    resolver: yupResolver(createJobValidation),
   });
 
   const createJob = async (data: IJob) => {
@@ -154,10 +175,10 @@ const Jobs = () => {
           type="search"
           value={search}
           id="search"
-          placeholder="Search role"
+          placeholder="Search"
           onChange={handleSearch}
         />{" "}
-        <Button onClick={toggleModal}>Add Job</Button>
+        <Button onClick={toggleModal}>Add</Button>
       </TableInputs>
       <Container>
         <Modal showModal={showModal} handleCloseModal={toggleModal}>
@@ -170,30 +191,17 @@ const Jobs = () => {
                 placeholder="Job Title"
               />
             </FormControl>
-            <FormControl>
-              <Input
-                {...register("shortDescription")}
-                placeholder="shortDescription"
-                name="shortDescription"
-                type="text"
-              />
-            </FormControl>
-            <FormControl>
-              <InputTextarea
-                {...register("longDescription")}
-                placeholder="longDescription"
-                name="longDescription"
-              />
-            </FormControl>
+            <Error>{errors.title?.message}</Error>
 
             <FormControl>
               <Input
                 {...register("logo")}
-                placeholder="logo"
+                placeholder="Logo"
                 name="logo"
                 type="logo"
               />
             </FormControl>
+            <Error>{errors.logo?.message}</Error>
             <FormControl>
               <Input
                 {...register("companyName")}
@@ -202,7 +210,24 @@ const Jobs = () => {
                 type="text"
               />
             </FormControl>
-
+            <Error>{errors.companyName?.message}</Error>
+            <FormControl>
+              <Input
+                {...register("shortDescription")}
+                placeholder="Short Description"
+                name="shortDescription"
+                type="text"
+              />
+            </FormControl>
+            <Error>{errors.shortDescription?.message}</Error>
+            <FormControl>
+              <InputTextarea
+                {...register("longDescription")}
+                placeholder="Long Description"
+                name="longDescription"
+              />
+            </FormControl>
+            <Error>{errors.longDescription?.message}</Error>
             <button disabled={!isValid && !isDirty} type="submit">
               add
             </button>
