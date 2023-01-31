@@ -4,7 +4,7 @@ export const SLayout = styled.div`
   display: flex;
   height: 100%;
   width: 100%;
-  background: ${({ theme }) => theme.bg2};
+  background-color: ${({ theme }) => theme.bg2};
   border-radius: 2rem;
   color: ${({ theme }) => theme.text};
 `;

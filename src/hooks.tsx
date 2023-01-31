@@ -1,4 +1,5 @@
-import { useEffect, RefObject } from "react";
+import { useEffect, RefObject, useState } from "react";
+import {IJob, ICandidate } from 'types'
 
 export const useOnClickOutside = (
   ref: RefObject<HTMLElement>,
@@ -24,11 +25,13 @@ export enum FavouriteType {
 }
 
 export const useFavorites = (type: FavouriteType) => {
+  const [favorites, setFavorites] = useState<number[]>(JSON.parse(localStorage.getItem(type) || "[]"));
+
+
   const update = (data: number[]) => {
+    setFavorites(data)
     localStorage.setItem(type, JSON.stringify(data));
   };
-  const get = (): number[] => {
-    return JSON.parse(localStorage.getItem(type) || "[]");
-  };
-  return { update, get };
+
+  return { update, favorites };
 };

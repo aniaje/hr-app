@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
     body {
         font-family: 'Karla', 'Times New Roman', Times, serif !important;
         letter-spacing: .6px;
+       
     }
 
 `;

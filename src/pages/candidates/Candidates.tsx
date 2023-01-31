@@ -39,13 +39,13 @@ import {
   ActionButtonFav,
 } from "../../components/Table/Tables.styles";
 import Checkbox from "../../components/Table/Checkbox";
+import { FavouriteType, useFavorites } from "hooks";
 
 const Candidates = () => {
   const [search, setSearch] = useState<string>("");
   const [checked, setChecked] = useState<string[]>([]);
-  const [favorites, setFavorites] = useState<number[]>([]);
   const { data: candidates, error, isLoading } = useGetAllCandidatesQuery([]);
-
+  const { update, favorites } = useFavorites(FavouriteType.CANDIDATES);
   const { paginatedData, pagesCount, setPage, setData, page } =
     usePagination<ICandidate>();
 
@@ -87,10 +87,9 @@ const Candidates = () => {
 
   const createCandidate = async (data: ICandidate) => {
     try {
-      console.log(data);
       const result = await addCandidate(data).unwrap();
       setShowModal(false);
-      console.log(result);
+   
     } catch (err) {
       if (errors) {
         console.error("error", err);
@@ -150,9 +149,10 @@ const Candidates = () => {
 
   const handleFav = (id: number) => {
     if (!favorites.includes(id)) {
-      return setFavorites([...favorites, id]);
+      update([...favorites, id]);
+      return;
     }
-    return setFavorites(favorites.filter((item) => item !== id));
+    update(favorites.filter((item) => item !== id));
   };
 
   const tableHeads = ["User", "Email", "Position", "Actions", "Fav"];

@@ -45,8 +45,7 @@ import {
 const Jobs = () => {
   const [search, setSearch] = useState<string>("");
   const [checked, setChecked] = useState<string[]>([]);
-  const { update, get } = useFavorites(FavouriteType.JOBS);
-  const [favorites, setFavorites] = useState<number[]>(get());
+  const { update, favorites } = useFavorites(FavouriteType.JOBS);
 
   const { data: jobs, error, isLoading } = useGetAllJobsQuery([]);
   const { paginatedData, pagesCount, setPage, setData, page } =
@@ -95,10 +94,9 @@ const Jobs = () => {
 
   const createJob = async (data: IJob) => {
     try {
-      console.log(data);
       const result = await addJob(data).unwrap();
       setShowModal(false);
-      console.log(result);
+  
     } catch (err) {
       if (errors) {
         console.error("error", err);
@@ -150,13 +148,8 @@ const Jobs = () => {
   const handleFav = (id: number) => {
     if (!favorites.includes(id)) {
       update([...favorites, id]);
-
-      setFavorites([...favorites, id]);
-
       return;
     }
-
-    setFavorites(favorites.filter((item) => item !== id));
     update(favorites.filter((item) => item !== id));
   };
 
@@ -228,9 +221,9 @@ const Jobs = () => {
               />
             </FormControl>
             <Error>{errors.longDescription?.message}</Error>
-            <button disabled={!isValid && !isDirty} type="submit">
+            <Button disabled={!isValid && !isDirty} type="submit">
               add
-            </button>
+            </Button>
           </Form>
         </Modal>
       </Container>

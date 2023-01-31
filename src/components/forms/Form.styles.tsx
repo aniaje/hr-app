@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { variables } from "../../styles/variables";
 
 export const Form = styled.form`
@@ -108,9 +108,21 @@ export const Error = styled.span`
   display: flex;
   justify-content: center;
   margin-bottom: ${variables.smSpacing};
+  color: red;
 `;
 
 export const RedirectLink = styled(Link)`
   color: ${({ theme }) => theme.primary};
   text-decoration: none;
+`;
+
+export const DatePickerWrapperStyles = createGlobalStyle`
+    .date_picker.full-width input{
+        width: 100%;
+       
+        padding: 8px;
+        border-radius: ${variables.borderRadius};
+        font-family: inherit;
+        border: 1px solid ${({ theme }) => theme.textFade};
+    }
 `;

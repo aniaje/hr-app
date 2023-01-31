@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FcBullish } from "react-icons/fc";
 
 import { variables } from "../../styles/variables";
+import { Link } from "react-router-dom";
 
 export const DWrapper = styled.main`
   width: 80%;
@@ -60,6 +61,12 @@ export const Card = styled.div`
   border-radius: 1rem;
   padding: 1.5rem 2rem;
   transition: all 0.1s linear;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 
   @media screen and (min-width: 190px) and (max-width: 1080px) {
     width: 80%; //height: max-content;
@@ -71,9 +78,14 @@ export const Title = styled.h3`
   font-weight: 500;
 `;
 
-export const DashboardCount = styled.h3`
+export const DataLink = styled(Link)`
   font-size: ${variables.lTitle};
   font-weight: 300;
+  text-decoration: none;
+  color: inherit;
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 export const GrowthInfo = styled.p`

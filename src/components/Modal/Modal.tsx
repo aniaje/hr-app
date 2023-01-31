@@ -42,7 +42,6 @@ export const Modal = ({ showModal, children, handleCloseModal }: IModal) => {
       <Background
         onClick={() => {
           handleCloseModal();
-          console.log("background");
         }}
         ref={modalRef}
       />

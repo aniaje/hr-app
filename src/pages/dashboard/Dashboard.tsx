@@ -4,6 +4,7 @@ import {
   FcBusinessContact,
   FcMultipleDevices,
 } from "react-icons/fc";
+import { Link } from "react-router-dom";
 import { useGetAllCandidatesQuery } from "redux/services/candidates";
 import { useGetAllJobsQuery } from "redux/services/jobs";
 import { StatData } from "types";
@@ -12,7 +13,6 @@ import {
   SectionTop,
   Section,
   Card,
-  DashboardCount,
   Title,
   GeneralContainer,
   DWrapper,
@@ -21,6 +21,7 @@ import {
   StatisticInfo,
   StatTitle,
   TextContainer,
+  DataLink,
 } from "./Dashboard.styles";
 
 const Dashboard = () => {
@@ -53,12 +54,12 @@ const Dashboard = () => {
       <SectionTop>
         <Card>
           <Title>Open Positions</Title>
-          <DashboardCount>{totalJobs}</DashboardCount>
+          <DataLink to="/jobs">{totalJobs}</DataLink>
         </Card>
+
         <Card>
           <Title> Candidates</Title>
-
-          <DashboardCount>{totalCandidates}</DashboardCount>
+          <DataLink to="/candidates">{totalCandidates}</DataLink>
         </Card>
       </SectionTop>
       <Section>
