@@ -8,7 +8,7 @@ The application works with Hr-App-Api.
 
 ## Usage
 
-A user can reguster with an e-mail and password and login with the same data.
+A user can register (signin) with an e-mail and password and signup with the same data.
 Data of the logged in user display in Profile.
 User can add, delete, preview and add to favorites chosen candidates and jobs (open positions) to the dashboard. 
 The is also a feature to ad events to /calendar.
