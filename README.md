@@ -1,4 +1,4 @@
-# HR-App
+# HR App
 
 HR App is a dashboard to support recruitment process. It's also candidates and open roles management system.
 
