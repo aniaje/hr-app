@@ -4,7 +4,7 @@ import { APITags } from "./enums";
 
 export const dataApiSlice = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:9595/",
+    baseUrl: "https://hr-dashboard-api.onrender.com/",
     prepareHeaders: (headers) => {
       if (getTokenFromLocalStorage()) {
         headers.set(
