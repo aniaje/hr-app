@@ -55,7 +55,7 @@ export const CheckboxLabel = styled.label`
 export const Input = styled.input`
   outline: none;
   position: relative;
-  border: 1px solid ${({ theme }) => theme.textFade};
+  border: 1px solid ${({ theme }) => theme};
   width: 100%;
   padding: ${variables.smSpacing};
   font-size: 14px;
@@ -123,6 +123,6 @@ export const DatePickerWrapperStyles = createGlobalStyle`
         padding: 8px;
         border-radius: ${variables.borderRadius};
         font-family: inherit;
-        border: 1px solid ${({ theme }) => theme.textFade};
+        border: 1px solid rgba(51, 51, 51, 0.3)
     }
 `;

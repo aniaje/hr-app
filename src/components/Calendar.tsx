@@ -67,14 +67,14 @@ const meetings = [
 export const CalendarHR = () => {
   const [newMeeting, setNewMeeting] = useState<Meeting>({
     title: "",
-    start: "",
-    end: "",
+    start: new Date(),
+    end: new Date(),
   });
 
   const defaultData = {
     title: "",
-    start: "",
-    end: "",
+    start: new Date(),
+    end: new Date(),
   };
 
   const createMeetingValidation = yup.object().shape({
