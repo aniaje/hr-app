@@ -14,3 +14,5 @@ User can add, delete, preview and add to favorites chosen candidates and jobs (o
 The is also a feature to plan meetings/events in /calendar.
 
 /Home shows summarized statistic data for both candidates and open jobs.
+
+![my screenshot](screenshot.png)
